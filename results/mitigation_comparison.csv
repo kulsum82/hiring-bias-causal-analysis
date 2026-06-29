@@ -1,0 +1,4 @@
+Metric,Baseline (Before),Mitigated (After)
+Accuracy,0.8525,0.8384
+Demographic Parity Diff,0.1450,0.0053
+Equalized Odds Diff,0.0620,0.2853
