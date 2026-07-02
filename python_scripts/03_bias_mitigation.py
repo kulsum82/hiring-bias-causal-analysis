@@ -1,6 +1,6 @@
-# ============================================
+
 # STEP 5: Bias Mitigation Using Fairlearn
-# ============================================
+
 
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder
@@ -10,7 +10,7 @@ from sklearn.metrics import accuracy_score
 from fairlearn.reductions import ExponentiatedGradient, DemographicParity
 from fairlearn.metrics import MetricFrame, demographic_parity_difference, equalized_odds_difference
 
-print("Loading and preparing data...")
+print("Loading and preparing data")
 
 # ---- Load and clean data (same as before) ----
 df = pd.read_csv("data/adult_clean.csv")
@@ -35,10 +35,10 @@ X_train, X_test, y_train, y_test, sens_train, sens_test = train_test_split(
     X, y, sensitive, test_size=0.2, random_state=42, stratify=y
 )
 
-# ============================================
+
 # MODEL 1: BASELINE (no fairness constraint) — for comparison
-# ============================================
-print("\nTraining BASELINE model (no fairness constraint)...")
+
+print("\nTraining BASELINE model (no fairness constraint)")
 baseline_model = RandomForestClassifier(n_estimators=100, random_state=42, max_depth=10)
 baseline_model.fit(X_train, y_train)
 y_pred_baseline = baseline_model.predict(X_test)
@@ -47,10 +47,10 @@ baseline_acc = accuracy_score(y_test, y_pred_baseline)
 baseline_dpd = demographic_parity_difference(y_test, y_pred_baseline, sensitive_features=sens_test)
 baseline_eod = equalized_odds_difference(y_test, y_pred_baseline, sensitive_features=sens_test)
 
-# ============================================
+
 # MODEL 2: FAIRNESS-CONSTRAINED MODEL
-# ============================================
-print("Training FAIRNESS-CONSTRAINED model... (this takes 2-5 minutes, be patient)")
+
+print("Training FAIRNESS-CONSTRAINED model (this takes 2-5 minutes, be patient)")
 
 constraint = DemographicParity()
 base_estimator = RandomForestClassifier(n_estimators=100, random_state=42, max_depth=10)
@@ -68,9 +68,9 @@ fair_acc = accuracy_score(y_test, y_pred_fair)
 fair_dpd = demographic_parity_difference(y_test, y_pred_fair, sensitive_features=sens_test)
 fair_eod = equalized_odds_difference(y_test, y_pred_fair, sensitive_features=sens_test)
 
-# ============================================
+
 # COMPARISON TABLE
-# ============================================
+
 print("\n" + "="*60)
 print("BEFORE vs AFTER MITIGATION")
 print("="*60)
@@ -83,11 +83,11 @@ comparison = pd.DataFrame({
 print(comparison.to_string(index=False))
 
 # ---- Selection rates by group, before vs after ----
-print("\n--- Selection Rate by Gender: Before ---")
+print("\n Selection Rate by Gender: Before ")
 mf_before = MetricFrame(metrics=lambda yt, yp: yp.mean(), y_true=y_test, y_pred=y_pred_baseline, sensitive_features=sens_test)
 print(mf_before.by_group)
 
-print("\n--- Selection Rate by Gender: After ---")
+print("\n Selection Rate by Gender: After ")
 mf_after = MetricFrame(metrics=lambda yt, yp: yp.mean(), y_true=y_test, y_pred=y_pred_fair, sensitive_features=sens_test)
 print(mf_after.by_group)
 

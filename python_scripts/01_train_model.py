@@ -1,7 +1,7 @@
-# ============================================
+
 # STEP 4: Train ML Model + Measure Fairness
 # Dataset: Adult Income (same one used in R)
-# ============================================
+
 
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder
@@ -9,9 +9,9 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, classification_report
 
-print("Loading dataset...")
+print("Loading dataset")
 
-# Load the SAME clean dataset you created in R
+# Load the same clean dataset you created in R
 df = pd.read_csv("data/adult_clean.csv")
 
 # Quick check
@@ -54,7 +54,7 @@ print(f"\nTraining set size: {len(X_train)}")
 print(f"Test set size: {len(X_test)}")
 
 # ---- Train Random Forest model ----
-print("\nTraining Random Forest model...")
+print("\nTraining Random Forest model")
 model = RandomForestClassifier(n_estimators=100, random_state=42, max_depth=10)
 model.fit(X_train, y_train)
 
@@ -62,7 +62,7 @@ model.fit(X_train, y_train)
 y_pred = model.predict(X_test)
 accuracy = accuracy_score(y_test, y_pred)
 
-print(f"\n=== Model Performance ===")
+print(f"\n Model Performance ")
 print(f"Accuracy: {accuracy:.4f}")
 print("\nClassification Report:")
 print(classification_report(y_test, y_pred, target_names=['<=50K', '>50K']))
