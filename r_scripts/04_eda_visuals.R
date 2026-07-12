@@ -1,6 +1,6 @@
-# ============================================
+
 # STEP 2 (Part 2): Exploratory Visualizations
-# ============================================
+
 
 library(tidyverse)
 
@@ -10,7 +10,7 @@ df <- read_csv("data/adult_clean.csv", show_col_types = FALSE)
 # Clean up income column (remove extra spaces if any)
 df <- df %>% mutate(income = str_trim(income))
 
-# ---- Chart 1: Income distribution by Gender ----
+#  Chart 1: Income distribution by Gender 
 p1 <- df %>%
   count(sex, income) %>%
   group_by(sex) %>%
@@ -26,7 +26,7 @@ p1 <- df %>%
 ggsave("results/01_income_by_gender.png", p1, width = 7, height = 5)
 print(p1)
 
-# ---- Chart 2: Income distribution by Race ----
+#  Chart 2: Income distribution by Race 
 p2 <- df %>%
   count(race, income) %>%
   group_by(race) %>%
@@ -43,7 +43,7 @@ p2 <- df %>%
 ggsave("results/02_income_by_race.png", p2, width = 8, height = 5)
 print(p2)
 
-# ---- Quick numeric summary ----
+#  Quick numeric summary 
 cat("\n--- Income % by Gender ---\n")
 df %>%
   count(sex, income) %>%

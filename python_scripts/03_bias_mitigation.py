@@ -12,7 +12,7 @@ from fairlearn.metrics import MetricFrame, demographic_parity_difference, equali
 
 print("Loading and preparing data")
 
-# ---- Load and clean data (same as before) ----
+#  Load and clean data (same as before) 
 df = pd.read_csv("data/adult_clean.csv")
 df['income'] = df['income'].str.strip()
 df = df.dropna()
@@ -30,13 +30,13 @@ X = df.drop(columns=['income'])
 y = df['income']
 sensitive = df['sex']  # 0 = Female, 1 = Male
 
-# ---- Train-test split (keep sensitive feature aligned) ----
+#  Train-test split (keep sensitive feature aligned) 
 X_train, X_test, y_train, y_test, sens_train, sens_test = train_test_split(
     X, y, sensitive, test_size=0.2, random_state=42, stratify=y
 )
 
 
-# MODEL 1: BASELINE (no fairness constraint) — for comparison
+# MODEL 1: BASELINE (no fairness constraint) - for comparison
 
 print("\nTraining BASELINE model (no fairness constraint)")
 baseline_model = RandomForestClassifier(n_estimators=100, random_state=42, max_depth=10)
@@ -58,7 +58,7 @@ base_estimator = RandomForestClassifier(n_estimators=100, random_state=42, max_d
 mitigator = ExponentiatedGradient(
     estimator=base_estimator,
     constraints=constraint,
-    eps=0.01  # how strict the fairness constraint is
+    eps=0.01          # how strict the fairness constraint is
 )
 
 mitigator.fit(X_train, y_train, sensitive_features=sens_train)
@@ -82,7 +82,7 @@ comparison = pd.DataFrame({
 })
 print(comparison.to_string(index=False))
 
-# ---- Selection rates by group, before vs after ----
+#  Selection rates by group, before vs after 
 print("\n Selection Rate by Gender: Before ")
 mf_before = MetricFrame(metrics=lambda yt, yp: yp.mean(), y_true=y_test, y_pred=y_pred_baseline, sensitive_features=sens_test)
 print(mf_before.by_group)
@@ -91,7 +91,7 @@ print("\n Selection Rate by Gender: After ")
 mf_after = MetricFrame(metrics=lambda yt, yp: yp.mean(), y_true=y_test, y_pred=y_pred_fair, sensitive_features=sens_test)
 print(mf_after.by_group)
 
-# ---- Save comparison for the report ----
+#  Save comparison for the report 
 comparison.to_csv("results/mitigation_comparison.csv", index=False)
 print("\nComparison saved to results/mitigation_comparison.csv")
 

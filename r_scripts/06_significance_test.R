@@ -1,7 +1,7 @@
-# ============================================
+
 # STEP 3B: Statistical Significance Test
 # Is the matched income gap statistically real?
-# ============================================
+
 
 library(tidyverse)
 
@@ -52,7 +52,7 @@ if (p_val < 0.001) {
 cat("\n95% Confidence Interval for the difference in proportions:\n")
 print(test_result$conf.int)
 
-# ---- Bonus: Chi-square test (alternative method, same conclusion) ----
+#  Bonus: Chi-square test (alternative method, same conclusion) 
 cat("\n=== Chi-Square Test (cross-check) ===\n")
 contingency_table <- table(matched_data$treatment, matched_data$income_binary)
 print(contingency_table)
