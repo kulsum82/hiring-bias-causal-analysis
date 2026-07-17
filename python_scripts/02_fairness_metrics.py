@@ -1,5 +1,5 @@
 
-# STEP 4B: Measure Bias Using Fairlearn
+# Measure Bias Using Fairlearn
 
 import pandas as pd
 from sklearn.metrics import accuracy_score, recall_score, precision_score

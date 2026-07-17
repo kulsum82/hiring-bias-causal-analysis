@@ -1,5 +1,5 @@
 
-# STEP 5: Bias Mitigation Using Fairlearn
+Bias Mitigation Using Fairlearn
 
 
 import pandas as pd
@@ -12,7 +12,7 @@ from fairlearn.metrics import MetricFrame, demographic_parity_difference, equali
 
 print("Loading and preparing data")
 
-#  Load and clean data (same as before) 
+#  Load and clean data
 df = pd.read_csv("data/adult_clean.csv")
 df['income'] = df['income'].str.strip()
 df = df.dropna()
@@ -30,7 +30,7 @@ X = df.drop(columns=['income'])
 y = df['income']
 sensitive = df['sex']  # 0 = Female, 1 = Male
 
-#  Train-test split (keep sensitive feature aligned) 
+#  Train-test split  
 X_train, X_test, y_train, y_test, sens_train, sens_test = train_test_split(
     X, y, sensitive, test_size=0.2, random_state=42, stratify=y
 )
