@@ -1,4 +1,5 @@
 # Fairness, Bias & Causal Inference in Hiring/Income Prediction
+## [View interactive dashboard](results/dashboard.html)
 
 > A combined R and Python research project investigating gender-based income disparity through descriptive statistics, causal inference, and machine learning fairness analysis.
 
